@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Cool location based service app</title>
+	<title>Scrapper</title>
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -13,6 +13,65 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
+	<div id="controls" class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+<!-- 		Font Size:
+		<button onclick="fontSizePlus()">+</button>
+		<button onclick="fontSizeMinus()">-</button>
+		Margin Size:
+		<button onclick="paddingPlus()">+</button>
+		<button onclick="paddingMinus()">-</button>
+		Line Spacing:
+		<button onclick="lineHeightPlus()">+</button>
+		<button onclick="lineHeightMinus()">-</button>
+		Font Type:
+		<select id="font-selector" onchange="fontChange()">
+			<option value="sans">Sans-Serif</option>
+			<option value="serif">Serif</option>
+			<option value="fixed">Fixed-Width</option>
+		</select>
+		Color Themes:
+		<select id="theme-selector" onchange="themeChange()">
+			<option value="day">Day</option>
+			<option value="night">Night</option>
+			<option value="solarized-light">Solarized Light</option>
+			<option value="solarized-dark">Solarized Dark</option>
+		</select> -->
+		<table class="navbar-right">
+			<tr>
+				<td>Font Size</td><td>Margin Size</td><td>Line Spacing</td><td>Font Type</td><td>Color Theme</td>
+			</tr>
+			<tr>
+				<td><button onclick="fontSizePlus()">+</button>
+					<button onclick="fontSizeMinus()">-</button>
+				</td>
+				<td><button onclick="paddingPlus()">+</button>
+				<button onclick="paddingMinus()">-</button>
+				</td>
+				<td><button onclick="lineHeightPlus()">+</button>
+					<button onclick="lineHeightMinus()">-</button>
+				</td>
+				<td><select id="font-selector" onchange="fontChange()">
+					<option value="sans">Sans-Serif</option>
+					<option value="serif">Serif</option>
+					<option value="fixed">Fixed-Width</option>
+				</select>
+				</td>
+				<td><select id="theme-selector" onchange="themeChange()">
+					<option value="day">Day</option>
+					<option value="night">Night</option>
+					<option value="solarized-light">Solarized Light</option>
+					<option value="solarized-dark">Solarized Dark</option>
+				</select>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div id="content" class="col-md-12"></div>
+		</div>
+	</div>
 </body>
 </html>

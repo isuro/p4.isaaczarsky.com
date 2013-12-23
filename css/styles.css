@@ -1,0 +1,23 @@
+body {
+	padding-top: 80px; /* Clear for navbar */
+}
+
+div#controls {
+	color: black;
+	background-color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+table {
+
+}
+
+td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+button {
+	width: 30px;
+}
