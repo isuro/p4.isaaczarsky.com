@@ -15,6 +15,20 @@
 <body>
 	<div id="controls" class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
+		<table style="float: left;">
+			<tr>
+				<td>
+					URL
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form action="#">
+					<input type="text" id="url-entry"></input> <input type="submit" onclick="parseUrl()"></input>
+					</form>
+				</td>
+			</tr>
+		</table>
 <!-- 		Font Size:
 		<button onclick="fontSizePlus()">+</button>
 		<button onclick="fontSizeMinus()">-</button>
@@ -68,7 +82,11 @@
 		</table>
 	</div>
 	</div>
-	<div class="container">
+	<div class="container" id="story">
+		<div class="row">
+			<h2 id="title"></h2>
+			<p id="author"></p>
+		</div>
 		<div class="row">
 			<div id="content" class="col-md-12"></div>
 		</div>
