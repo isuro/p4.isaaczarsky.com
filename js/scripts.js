@@ -15,13 +15,12 @@ function parseUrl() {
 				$("#content").html(data.content);
 				$("#title").html(data.title);
 				$("#author").html(data.author);
-	});
+			});
 	}
-
-
+	$("#url-entry").blur();
 }
 
-var fontSize = 14;
+var fontSize = 16;
 var padding = 15;
 var lineHeight = 20;
 
@@ -61,11 +60,11 @@ function lineHeightMinus(){
 
 function fontChange(){
 	switch($("#font-selector").val()){
-		case "sans":
-			$("#content").css("font-family", "Helvetica Neue, Helvetica, Arial, sans-serif");
-			break;
 		case "serif":
 			$("#content").css("font-family", "Georgia, Times New Roman, serif");
+			break;
+		case "sans":
+			$("#content").css("font-family", "Helvetica Neue, Helvetica, Arial, sans-serif");
 			break;
 		case "fixed":
 			$("#content").css("font-family", "Menlo, Courier New, monospace");
