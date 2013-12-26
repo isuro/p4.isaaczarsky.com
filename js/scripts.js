@@ -39,12 +39,14 @@ function fontSizeMinus(){
 
 function paddingPlus(){
 	padding+=20;
-	$("#content").css({"padding-left":padding,"padding-right":padding})
+	$("#content").css({"padding-left":padding,"padding-right":padding});
+	if(padding > 15) {$("#padding-minus").prop("disabled", false)}
 }
 
 function paddingMinus(){
 	padding-=20;
-	$("#content").css({"padding-left":padding,"padding-right":padding})
+	$("#content").css({"padding-left":padding,"padding-right":padding});
+	if(padding <= 15) {$("#padding-minus").prop("disabled", true)}
 }
 
 function lineHeightPlus(){
