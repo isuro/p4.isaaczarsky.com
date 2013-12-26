@@ -51,7 +51,7 @@
 			<option value="solarized-light">Solarized Light</option>
 			<option value="solarized-dark">Solarized Dark</option>
 		</select> -->
-		<table class="navbar-right">
+		<table class="navbar-right" id="text-controls" class="controls" hidden>
 			<tr>
 				<td>Font Size</td><td>Margin Size</td><td>Line Spacing</td><td>Font Type</td><td>Color Theme</td>
 			</tr>
@@ -78,6 +78,14 @@
 					<option value="solarized-dark">Solarized Dark</option>
 				</select>
 				</td>
+			</tr>
+		</table>
+		<table class="navbar-right" id="image-controls" class="controls" hidden>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td><button onclick="imageResize()">Toggle Image Size</td>
 			</tr>
 		</table>
 	</div>

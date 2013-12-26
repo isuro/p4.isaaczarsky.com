@@ -30,3 +30,7 @@ div#content {
 	font-size: 16px;
 	font-family: Georgia, Times New Roman, serif;
 }
+
+#image-controls button {
+	width: 200px;
+}

@@ -7,16 +7,23 @@
 // })
 
 function parseUrl() {
-	switch ($("#url-entry").val().slice(-3)){
+	$("#content").empty();
+	$("#title").empty();
+	$("#author").empty();
+	switch ($("#url-entry").val().slice(-4)){
 
+		case ".png":
+		case ".gif":
+		case ".jpg":
+		case "jpeg":
+		case ".tif":
+			showImage();
+			break;
 
 		default:
-			$.getJSON("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url="+$("#url-entry").val()+"&callback=?", function(data) {
-				$("#content").html(data.content);
-				$("#title").html(data.title);
-				$("#author").html(data.author);
-			});
+			showArticle();
 	}
+
 	$("#url-entry").blur();
 }
 
@@ -95,4 +102,31 @@ function themeChange(){
 			$("#controls").addClass("navbar-inverse");
 			break;
 	}
+}
+
+function showImage(){
+
+	$("#content").html(
+		"<img src=\"" + $("#url-entry").val() + "\" class=\"img-responsive\" id=\"image\">"
+		);
+	$("#text-controls").hide();
+	realWidth = document.getElementById("image").naturalWidth;
+	realHeight = document.getElementById("image").naturalHeight;
+	if ($("#image").width() < realWidth ||  $("#image").height() < realHeight) {
+		$("#image-controls").show();
+	};
+}
+
+function imageResize(){
+	$("#image").toggleClass("img-responsive");
+}
+
+function showArticle(){
+	$.getJSON("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url="+$("#url-entry").val()+"&callback=?", function(data) {
+		$("#content").html(data.content);
+		$("#title").html(data.title);
+		$("#author").html(data.author);
+	});
+	$("#image-controls").hide();
+	$("#text-controls").show();
 }
