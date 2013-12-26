@@ -23,8 +23,8 @@
 			</tr>
 			<tr>
 				<td>
-					<form action="#">
-					<input type="text" id="url-entry"></input> <input type="submit" onclick="parseUrl()"></input>
+					<form onSubmit="parseUrl(); return false;">
+					<input type="text" id="url-entry"></input> <input type="submit"></input>
 					</form>
 				</td>
 			</tr>
@@ -66,8 +66,8 @@
 					<button onclick="lineHeightMinus()">-</button>
 				</td>
 				<td><select id="font-selector" onchange="fontChange()">
-					<option value="sans">Sans-Serif</option>
 					<option value="serif">Serif</option>
+					<option value="sans">Sans-Serif</option>
 					<option value="fixed">Fixed-Width</option>
 				</select>
 				</td>
