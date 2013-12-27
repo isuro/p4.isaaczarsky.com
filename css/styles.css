@@ -28,6 +28,9 @@ q:before, q:after {
 
 div#content {
 	font-size: 16px;
+}
+
+#content, #title, #author {
 	font-family: Georgia, Times New Roman, serif;
 }
 
