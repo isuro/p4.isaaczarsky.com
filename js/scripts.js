@@ -1,46 +1,91 @@
-// $().ready(function(){
-// 	$.getJSON("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url=http://www.theverge.com/2013/12/20/5223788/david-x-cohen-end-of-futurama-interview&callback=?", function(data) {
-// 		$("#content").html(data.content);
-// 		$("#title").html(data.title);
-// 		$("#author").html(data.author);
-// 	});
-// })
+var padding = 15;
+var lineHeight = 22;
+
+// var urlHeaderRequest;
+// var mimeTypeResponse;
+
 
 function parseUrl() {
 	$("#content").empty();
 	$("#title").empty();
 	$("#author").empty();
-	switch ($("#url-entry").val().slice(-4)){
 
-		case ".png":
-		case ".gif":
-		case ".jpg":
-		case "jpeg":
-		case ".tif":
+	// urlHeaderRequest = new XMLHttpRequest();
+	// urlHeaderRequest.open('GET', $("#url-entry").val(), true);
+	// urlHeaderRequest.send();
+	console.log("close...");
+	$.ajax($("#url-entry").val(), {type: "HEAD"}).done(function(data, status, jqXHR){
+		console.log(jqXHR.getResponseHeader('content-type').split("/")[0]);
+		loadRequestedContent(jqXHR.getResponseHeader('content-type').split("/")[0]);
+	});
+	console.log("after...");
+
+	// $.get($("#url-entry").val(), function(data, status, jqXHR){
+	// 	loadRequestedContent(jqXHR.getResponseHeader('content-type').split("/")[0]);
+	// });
+}
+
+function loadRequestedContent(mimeTypeResponse){
+	// urlHeaderRequest.onload = function() {
+	// 	mimeTypeResponse = this.getResponseHeader('content-type').split("/")[0];
+
+	//     console.log(mimeTypeResponse);
+
+	switch (mimeTypeResponse) {
+
+		case "video":
+			break;
+
+		case "image":
+			// console.log("Used mime!");
 			showImage();
 			break;
 
-		default:
+		case "audio":
+			break;
+
+		case "text":
 			showArticle();
+			break;
+
+		default:
+			$("#content").html(
+				"<h3>Sorry, I don't really know how to display this.</h3>"
+				);
+
+		// default:
+			// switch ($("#url-entry").val().slice(-4)){
+
+			// 	case ".mov":
+			// 	case ".m4v":
+			// 	case ".wmv":
+			// 	case ""
+
+			// 	case ".png":
+			// 	case ".gif":
+			// 	case ".jpg":
+			// 	case "jpeg":
+			// 	case ".tif":
+			// 		showImage();
+			// 		break;
+
+			// 	default:
+			//		showArticle();
+			// }
 	}
+	// }
 
 	$("#url-entry").blur();
 }
 
-var fontSize = 16;
-var padding = 15;
-var lineHeight = 20;
-
 function fontSizePlus(){
-	fontSize+= 2;
 	lineHeightPlus();
-	$("#content").css("font-size", fontSize+"px");
+	$("#story *").css("font-size", "+=2");
 }
 
 function fontSizeMinus(){
-	fontSize-=2;
 	lineHeightMinus();
-	$("#content").css("font-size", fontSize+"px");
+	$("#story *").css("font-size", "-=2");
 }
 
 function paddingPlus(){
@@ -57,24 +102,24 @@ function paddingMinus(){
 
 function lineHeightPlus(){
 	lineHeight+=2;
-	$("#content").css("line-height", lineHeight+"px");
+	$("#content").css("line-height", lineHeight + "px");
 }
 
 function lineHeightMinus(){
 	lineHeight-=2;
-	$("#content").css("line-height", lineHeight+"px");
+	$("#content").css("line-height", lineHeight + "px");
 }
 
 function fontChange(){
 	switch($("#font-selector").val()){
 		case "serif":
-			$("#content").css("font-family", "Georgia, Times New Roman, serif");
+			$("#story *").css("font-family", "Georgia, Times New Roman, serif");
 			break;
 		case "sans":
-			$("#content").css("font-family", "Helvetica Neue, Helvetica, Arial, sans-serif");
+			$("#story *").css("font-family", "Helvetica Neue, Helvetica, Arial, sans-serif");
 			break;
 		case "fixed":
-			$("#content").css("font-family", "Menlo, Courier New, monospace");
+			$("#story *").css("font-family", "Menlo, Courier New, monospace");
 			break;
 	}
 }
@@ -125,7 +170,7 @@ function showArticle(){
 	$.getJSON("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url="+$("#url-entry").val()+"&callback=?", function(data) {
 		$("#content").html(data.content);
 		$("#title").html(data.title);
-		$("#author").html(data.author);
+		$("#author").html("By "+data.author+" — "+data.domain);
 	});
 	$("#image-controls").hide();
 	$("#text-controls").show();
