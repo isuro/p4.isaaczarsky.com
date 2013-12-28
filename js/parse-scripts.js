@@ -96,12 +96,12 @@ function themeChange(){
 			break;
 		case "solarized-light":
 			$("body").css("background-color", "#fdf6e3");
-			$("#story").css("color", "#586e75");
+			$("#story").css("color", "#657b83");
 			$("#controls").removeClass("navbar-inverse");
 			break;
 		case "solarized-dark":
 			$("body").css("background-color", "#002b36");
-			$("#story").css("color", "#93a1a1");
+			$("#story").css("color", "#839496");
 			$("#controls").addClass("navbar-inverse");
 			break;
 	}
