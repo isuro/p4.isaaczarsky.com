@@ -33,32 +33,52 @@ class base_controller {
 				$_POST['user_id']  = $this->user->user_id;
 
 				$headerArray = get_headers($_POST['source_url'], 1);
-				$typeArray = explode("/", $headerArray["Content-Type"]);
+
+				if(gettype($headerArray["Content-Type"]) == "string"){
+					$typeArray = explode("/", $headerArray["Content-Type"]);
+				} elseif (gettype($headerArray["Content-Type"]) == "array") {
+					$typeArray = explode("/", $headerArray["Content-Type"][0]);
+				}
 
 				$_POST['media_type'] = $typeArray[0];
 
-				if($_POST['media_type'] == "text") {
-					$parserArray = json_decode(file_get_contents("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url=".$_POST('url')), true);
+				# Unix timestamp of when this post was created / modified
+				$_POST['created']  = Time::now();
+				$_POST['modified'] = Time::now();
 
-					$_POST['title'] = $parserArray['title'];
-					$_POST['content-preview'] = $parserArray['excerpt'];
+				if($_POST['media_type'] == "text") {
+					$parserArray = json_decode(file_get_contents("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url=".$_POST['source_url']), true);
+
+					if(strpos($http_response_header[0], "200") != false){
+
+						$_POST['title'] = $parserArray['title'];
+						$_POST['content_preview'] = $parserArray['excerpt'];
+						# Insert
+				        # Note we didn't have to sanitize any of the $_POST data because we're using the insert method which does it for us
+						DB::instance(DB_NAME)->insert('posts', $_POST);
+
+			        	# Quick and dirty feedback
+						$this->template->post_submitted = "<div class=\"alert alert-success\">Your post has been added.</div>";
+					}
+					else{
+						$this->template->post_submitted = "<div class=\"alert alert-danger\">Readability seems to be having problems with your URL. Check that it's formatted correctly or try again later.</div>";
+					}
 
 				}
 
 				else {
 					$_POST['title'] = basename($_POST['source_url']);
+					# Insert
+		        	# Note we didn't have to sanitize any of the $_POST data because we're using the insert method which does it for us
+					DB::instance(DB_NAME)->insert('posts', $_POST);
+
+		        	# Quick and dirty feedback
+					$this->template->post_submitted = "<div class=\"alert alert-success\">Your post has been added.</div>";
 				}
 
-	       	 	# Unix timestamp of when this post was created / modified
-				$_POST['created']  = Time::now();
-				$_POST['modified'] = Time::now();
 
-		        # Insert
-		        # Note we didn't have to sanitize any of the $_POST data because we're using the insert method which does it for us
-				DB::instance(DB_NAME)->insert('posts', $_POST);
 
-	        	# Quick and dirty feedback
-				$this->template->post_submitted = "<div class=\"alert alert-success\">Your post has been added.</div>";
+
 			}
 			
 	}
