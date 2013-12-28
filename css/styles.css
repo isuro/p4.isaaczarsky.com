@@ -13,6 +13,7 @@ div#controls {
 }
 
 img, iframe { /* For embedded media in articles */
+	display: block;
 	margin-right: auto;
 	margin-left: auto;
 	padding: 20px;
