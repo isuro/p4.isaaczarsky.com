@@ -22,6 +22,10 @@ $(window).ready(function(){
 			showArticle();
 			break;
 
+		case "application":
+			showApplication();
+			break;
+
 		default:
 			showArticle();
 			$("#original-link").after(
@@ -171,7 +175,7 @@ function showVideo(){
 
 	}
 	$("head").append("<link href=\"http://vjs.zencdn.net/4.2/video-js.css\" rel=\"stylesheet\">	<script src=\"http://vjs.zencdn.net/4.2/video.js\"></script>");
-	$("#content").html("<video id=\"video\" class=\"video-js vjs-default-skin vjs-big-play-centered\"	controls preload=\"auto\" width=\""+$("#content").width()+"\" height=\""+Math.round($("#content").width()/16*9)+"\" ;\"> <source src=\""+sourceUrl+"\" type=\'video/"+videoFormat+"\' /> </video>");
+	$("#content").html("<video id=\"video\" class=\"video-js vjs-default-skin vjs-big-play-centered\"	controls preload=\"auto\" width=\""+$("#content").width()+"\" height=\""+Math.round($("#content").width()/16*9)+"\"> <source src=\""+sourceUrl+"\" type=\'video/"+videoFormat+"\' /> </video>");
 	$(window).load( function(){ videojs("video", {}, function(){
 		// Player (this) is initialized and ready.
 	});});
@@ -183,4 +187,8 @@ function showAudio(){
 	audiojs.events.ready(function() {
 	  	var as = audiojs.createAll();
 	});
+}
+
+function showApplication(){
+	$("#content").html("<embed src=\""+sourceUrl+"\" width=\""+$("#content").width()+"\" height=\""+Math.round($("#content").width()/4*3)+"\">");
 }
