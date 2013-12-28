@@ -1,3 +1,4 @@
+// Prevents empty post submission
 function stoppedTyping(){
 	if($("textarea#source-url").val().length > 0) {
 		$("#submit-post").prop("disabled", false);

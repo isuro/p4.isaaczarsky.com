@@ -1,4 +1,4 @@
-$(window).ready(function(){
+$(window).ready(function(){ // The master parsing function uses the header reported Content-Type of a url
 
 	$("#back-button").show();
 
@@ -44,6 +44,8 @@ function fontSizeMinus(){
 	$("#content").css("font-size", "-=2");
 }
 
+// For some reason jQuery won't increment padding or line-height like font-size
+// As a result, these values are tracked independantly with variables
 function paddingPlus(){
 	padding+=20;
 	$("#content").css({"padding-left":padding,"padding-right":padding});
@@ -110,31 +112,36 @@ function showImage(){
 	$("#content").html(
 		"<img src=\"" + sourceUrl + "\" class=\"img-responsive\" id=\"image\">"
 		);
-	// $("#text-controls").hide();
+
 	realWidth = document.getElementById("image").naturalWidth;
 	realHeight = document.getElementById("image").naturalHeight;
+	// This checks if an image has been shrunken to fit
 	if ($("#image").width() < realWidth ||  $("#image").height() < realHeight) {
-		$("#image-controls").show();
+		$("#image-controls").show(); // If so it reveals the toggle
 	};
 }
 
 function imageResize(){
+	// img-responsive is the Bootstrap class that resizes the image to fit
 	$("#image").toggleClass("img-responsive");
 }
 
 function showArticle(){
+	// Rather than store everything on the server, a fresh request is made to Readability
 	$.getJSON("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url="+sourceUrl+"&callback=?", function(data) {
 		$("#content").html(data.content);
 		$("#title").html(data.title);
 		$("#author").html("By "+data.author+" — "+data.domain);
 	});
-	// $("#image-controls").hide();
+
+	// If the url is from youtube or vimeo, the player should be full size
 	if(sourceUrl.indexOf("youtube") >= 0 || sourceUrl.indexOf("vimeo") >=0) {
 		$(window).load( function(){ 
 			$("iframe").width($("#content").width());
 			$("iframe").height(Math.round($("#content").width()/16*9));
 		});
 	}
+	// Otherwise, show the text controls
 	else{
 		$("#text-controls").show();
 	}
@@ -143,6 +150,10 @@ function showArticle(){
 function showVideo(){
 	var videoFormat;
 
+	// The video player requires the source encoding
+	// This is ascertained based on the file extension, somewhat haphazardly
+	// Doing it with another HEAD request might be more elegant, but would introduce
+	// more edge cases and potential points of failure, this covers most popular formats
 	switch(sourceUrl.substr(sourceUrl.lastIndexOf(".")+1)) {
 
 		case "flv":
@@ -182,21 +193,31 @@ function showVideo(){
 			videoFormat = sourceUrl.substr(sourceUrl.lastIndexOf(".")+1);
 
 	}
+
+	// Load the video.js player, which supports flash fallback for the html5 video element
+
 	$("head").append("<link href=\"http://vjs.zencdn.net/4.2/video-js.css\" rel=\"stylesheet\">	<script src=\"http://vjs.zencdn.net/4.2/video.js\"></script>");
 	$("#content").html("<video id=\"video\" class=\"video-js vjs-default-skin vjs-big-play-centered\"	controls preload=\"auto\" width=\""+$("#content").width()+"\" height=\""+Math.round($("#content").width()/16*9)+"\"> <source src=\""+sourceUrl+"\" type=\'video/"+videoFormat+"\' /> </video>");
+
+	// Wait for load to ensure that all the components are ready
 	$(window).load( function(){ videojs("video", {}, function(){
 		// Player (this) is initialized and ready.
 	});});
 }
 
 function showAudio(){
+	// Unlike video, the audio tag doesn't seem to care about being told about encoding
 	$("head").append("<script src=\"/js/audiojs/audio.min.js\"></script>");
 	$("#content").html("<audio src=\""+sourceUrl+"\" preload=\"auto\" />");
+
+	// Because it's local, audio.js doesn't need to wait for load
 	audiojs.events.ready(function() {
 	  	var as = audiojs.createAll();
 	});
 }
 
 function showApplication(){
+	// This is mainly for PDFs, whose content-type is 'application/pdf'
+	// Theoretically it should work for other applications too, though
 	$("#content").html("<embed src=\""+sourceUrl+"\" width=\""+$("#content").width()+"\" height=\""+Math.round($("#content").width()/4*3)+"\">");
 }

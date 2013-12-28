@@ -1,3 +1,6 @@
+/* This file is only loaded when viewing a post.
+   All of the styles are for articles and controls. */
+
 body {
 	padding-top: 80px; /* Clear for navbar */
 }
@@ -9,11 +12,7 @@ div#controls {
 	padding-bottom: 10px;
 }
 
-table {
-
-}
-
-img, iframe {
+img, iframe { /* For embedded media in articles */
 	float: right;
 	padding: 20px;
 	border: 0px;
@@ -28,7 +27,7 @@ td {
 	width: 30px;
 }
 
-q:before, q:after {
+q:before, q:after { /* Prevents random quotation marks in articles */
     content: "";
 }
 
@@ -44,7 +43,7 @@ div#content {
 	width: 200px;
 }
 
-.vjs-default-skin .vjs-big-play-button {
+.vjs-default-skin .vjs-big-play-button { /* Custom styling for video player */
 	left: 40% !important;
 	top: 40% !important;
 	width: 25%;

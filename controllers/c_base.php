@@ -32,8 +32,10 @@ class base_controller {
 	      	  	# Associate this post with this user
 				$_POST['user_id']  = $this->user->user_id;
 
+				# Pull the headers for the entered url
 				$headerArray = get_headers($_POST['source_url'], 1);
 
+				# Check how the header's Content-Type is formed and pull type out
 				if(gettype($headerArray["Content-Type"]) == "string"){
 					$typeArray = explode("/", $headerArray["Content-Type"]);
 				} elseif (gettype($headerArray["Content-Type"]) == "array") {
@@ -46,9 +48,11 @@ class base_controller {
 				$_POST['created']  = Time::now();
 				$_POST['modified'] = Time::now();
 
+				# Text urls are submitted to Readability for parsing
 				if($_POST['media_type'] == "text") {
 					$parserArray = json_decode(file_get_contents("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url=".$_POST['source_url']), true);
 
+					# Checks if Readability threw an error
 					if(strpos($http_response_header[0], "200") != false){
 
 						$_POST['title'] = $parserArray['title'];
@@ -66,6 +70,7 @@ class base_controller {
 
 				}
 
+				# Non-text urls have the file name become the title
 				else {
 					$_POST['title'] = basename($_POST['source_url']);
 					# Insert

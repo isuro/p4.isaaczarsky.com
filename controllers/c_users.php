@@ -53,6 +53,7 @@ class users_controller extends base_controller {
             Router::redirect("/users/signup/error");
         }
 
+        # Check for existing user with same username
         $q= "SELECT 'username' 
         FROM  `users` 
         WHERE  `username` =  '".$_POST['username']."'";
@@ -89,7 +90,7 @@ class users_controller extends base_controller {
 
         # For now, just confirm they've signed up - 
         # You should eventually make a proper View for this
-        #Router::redirect("/");
+        Router::redirect("/");
 
         # Hack for self-following
         # Router::redirect("/posts/follow/".$this->user->user_id);

@@ -151,7 +151,7 @@ class posts_controller extends base_controller {
         $post = DB::instance(DB_NAME)->select_rows($q);
 
         # Pass data to the View
-
+        # Resets defaults for text views, passes url and type to JS
         $this->template->client_files_head = ("
             <link rel='stylesheet' href='/css/styles.css'>
             <script src='/js/parse-scripts.js'></script>

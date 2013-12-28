@@ -55,6 +55,7 @@
 					<?php endif; ?>
 				</ul>
 			</div>
+			<!-- Back button is only revealed when viewing a post -->
 			<table class="navbar-left" id="back-button" class="controls" hidden>
 				<tr>
 					<td></td>
@@ -64,6 +65,7 @@
 					</td>
 				</tr>
 			</table>
+			<!-- Text controls are only revealed when viewing an article -->
 			<table class="navbar-right" id="text-controls" class="controls" hidden>
 				<tr>
 					<td>Font Size</td><td>Margin Size</td><td>Line Spacing</td><td>Font Type</td><td>Color Theme</td>
@@ -93,6 +95,7 @@
 					</td>
 				</tr>
 			</table>
+			<!-- Image controls are only revealed when viewing an image that has been shrunken to fit -->
 			<table class="navbar-right" id="image-controls" class="controls" hidden>
 				<tr>
 					<td></td>
