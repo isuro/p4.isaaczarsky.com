@@ -21,8 +21,9 @@ $(window).load(function(){
 			break;
 
 		default:
-			$("#content").html(
-				"<h3>Sorry, I don't really know how to display this.</h3> <a href=\"#\" onclick=\"showArticle()\">Click here to try to display it anyway.</a>"
+			showArticle();
+			$("#content").prepend(
+				"<h4>I'm not 100% sure I'm displaying this correctly. If something seems off, click \'show original\' above.</h4>"
 				);
 		}
 	});
