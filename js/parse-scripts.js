@@ -129,7 +129,15 @@ function showArticle(){
 		$("#author").html("By "+data.author+" — "+data.domain);
 	});
 	// $("#image-controls").hide();
-	$("#text-controls").show();
+	if(sourceUrl.indexOf("youtube") >= 0 || sourceUrl.indexOf("vimeo") >=0) {
+		$(window).load( function(){ 
+			$("iframe").width($("#content").width());
+			$("iframe").height(Math.round($("#content").width()/16*9));
+		});
+	}
+	else{
+		$("#text-controls").show();
+	}
 }
 
 function showVideo(){
