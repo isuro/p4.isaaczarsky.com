@@ -13,6 +13,12 @@ table {
 
 }
 
+img, iframe {
+	float: right;
+	padding: 20px;
+	border: 0px;
+}
+
 td {
 	padding-left: 5px;
 	padding-right: 5px;
