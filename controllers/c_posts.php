@@ -47,12 +47,12 @@ class posts_controller extends base_controller {
 
         # Query
         $q = 'SELECT
-                posts.content,
+                posts.title,
                 posts.created,
                 posts.user_id AS post_user_id,
                 users_users.user_id AS follower_id,
-                users.first_name,
-                users.last_name
+                users.display_name,
+                users.username
             FROM posts
             INNER JOIN users_users 
                 ON posts.user_id = users_users.user_id_followed
@@ -134,4 +134,35 @@ class posts_controller extends base_controller {
         Router::redirect("/posts/users");
 
     }
+
+    public function view($post_id) {
+
+        $this->template->content = View::instance('v_posts_view');
+        $this->template->title   = "Post view";
+
+        # Query
+        $q = 'SELECT 
+                media_type,
+                source_url
+            FROM posts
+            WHERE post_id = '.$post_id;
+
+        # Run the query, store the results in the variable $post
+        $post = DB::instance(DB_NAME)->select_rows($q);
+
+        # Pass data to the View
+
+        $this->template->client_files_head = ("
+            <link rel='stylesheet' href='/css/styles.css'>
+            <script src='/js/parse-scripts.js'></script>
+            <script>
+                var sourceUrl = \"".$post[0]['source_url']."\";
+                var mediaType = \"".$post[0]['media_type']."\";
+                var padding = 15;
+                var lineHeight = 22;
+            </script>");
+
+        # Render template
+        echo $this->template;
+        }
 }

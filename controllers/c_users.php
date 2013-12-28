@@ -37,7 +37,7 @@ class users_controller extends base_controller {
 
         # Check that no fields are empty, send back if they are
 
-        if (!isset($_POST['first_name']) && !isset($_POST['last_name']) && !isset($_POST['email']) && !isset($_POST['password'])) {
+        if (!isset($_POST['username']) && !isset($_POST['display_name']) && !isset($_POST['email']) && !isset($_POST['password'])) {
             if (!$value) Router::redirect("/users/signup/error");
         }
 
@@ -47,9 +47,19 @@ class users_controller extends base_controller {
         FROM  `users` 
         WHERE  `email` =  '".$_POST['email']."'";
 
-        $existing = DB::instance(DB_NAME)->select_rows($q);
+        $existingEmail = DB::instance(DB_NAME)->select_rows($q);
 
-        if ($existing) {
+        if ($existingEmail) {
+            Router::redirect("/users/signup/error");
+        }
+
+        $q= "SELECT 'username' 
+        FROM  `users` 
+        WHERE  `username` =  '".$_POST['username']."'";
+
+        $existingUser = DB::instance(DB_NAME)->select_rows($q);
+
+        if ($existingUser) {
             Router::redirect("/users/signup/error");
         }
 
@@ -82,8 +92,8 @@ class users_controller extends base_controller {
         #Router::redirect("/");
 
         # Hack for self-following
-        Router::redirect("/posts/follow/".$this->user->user_id);
-
+        # Router::redirect("/posts/follow/".$this->user->user_id);
+        # !!! Still problems with this
     }
 
     public function login($error = NULL) {
@@ -176,13 +186,16 @@ class users_controller extends base_controller {
 
     # Setup view
     $this->template->content = View::instance('v_users_profile');
-    $this->template->title   = "Profile of ".$this->user->first_name;
+    $this->template->title   = "Profile of ".$this->user->display_name;
 
     # Query
     $q = 'SELECT 
-            posts.content,
+            posts.title,
+            posts.media_type,
+            posts.content_preview,
             posts.created,
-            posts.user_id
+            posts.user_id,
+            posts.post_id
         FROM posts
         WHERE posts.user_id = '.$this->user->user_id.'
         ORDER BY posts.created DESC';
