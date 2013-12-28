@@ -8,12 +8,12 @@
     <?php endif; ?>
 
     <div class="form-group">
-        <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
-        <input type='text' id='inputFirstName' name='first_name'>
+        <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+        <input type='text' id='inputUsername' name='username'>
     </div>
     <div class="form-group">
-        <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
-        <input type='text' id='inputLastName' name='last_name'>
+        <label for="inputDisplayName" class="col-sm-2 control-label">Display Name</label>
+        <input type='text' id='inputDisplayName' name='display_name'>
     </div>
     <div class="form-group">
         <label for="inputEmail" class="col-sm-2 control-label">Email</label>
