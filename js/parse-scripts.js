@@ -1,4 +1,4 @@
-$(window).load(function(){
+$(window).ready(function(){
 
 	$("#original-link").attr("href", sourceUrl);
 
@@ -22,20 +22,20 @@ $(window).load(function(){
 
 		default:
 			showArticle();
-			$("#content").prepend(
-				"<h4>I'm not 100% sure I'm displaying this correctly. If something seems off, click \'show original\' above.</h4>"
+			$("#original-link").after(
+				"<p><em>I'm not 100% sure I'm displaying this correctly. If something seems off, click \'view original\' above.</em></p>"
 				);
 		}
 	});
 
 function fontSizePlus(){
 	lineHeightPlus();
-	$("#story *").css("font-size", "+=2");
+	$("#content").css("font-size", "+=2");
 }
 
 function fontSizeMinus(){
 	lineHeightMinus();
-	$("#story *").css("font-size", "-=2");
+	$("#content").css("font-size", "-=2");
 }
 
 function paddingPlus(){
@@ -127,17 +127,58 @@ function showArticle(){
 }
 
 function showVideo(){
-	$("head").append("<link href=\"http://vjs.zencdn.net/4.2/video-js.css\" rel=\"stylesheet\">	<script src=\"http://vjs.zencdn.net/4.2/video.js\"></script>")
-	$("#content").html("<video id=\"video\" class=\"video-js vjs-default-skin\"	controls preload=\"auto\"> <source src=\"http\" type=\'video\' /> </video>");
-	videojs("video", {}, function(){
+	var videoFormat;
+
+	switch(sourceUrl.substr(sourceUrl.lastIndexOf(".")+1)) {
+
+		case "flv":
+			videoFormat = "x-flv";
+			break;
+		case "mp4":
+		case "m4v":
+			videoFormat = "mp4";
+			break;
+		case "3gp":
+			videoFormat = "3gpp";
+			break;
+		case "mov":
+			videoFormat = "quicktime";
+			break;
+		case "avi":
+			videoFormat = "x-msvideo";
+			break;
+		case "wmv":
+			videoFormat = "x-ms-wmv";
+			break;
+		case "mpg":
+		case "mpeg":
+			videoFormat = "mpeg";
+			break;
+		case "ogg":
+		case "ogv":
+			videoFormat = "ogg";
+			break;
+		case "webm":
+			videoFormat = "webm";
+			break;
+		case "mkv":
+			videoFormat = "x-matroska";
+			break;
+		default:
+			videoFormat = sourceUrl.substr(sourceUrl.lastIndexOf(".")+1);
+
+	}
+	$("head").append("<link href=\"http://vjs.zencdn.net/4.2/video-js.css\" rel=\"stylesheet\">	<script src=\"http://vjs.zencdn.net/4.2/video.js\"></script>");
+	$("#content").html("<video id=\"video\" class=\"video-js vjs-default-skin vjs-big-play-centered\"	controls preload=\"auto\" width=\""+$("#content").width()+"\" height=\""+Math.round($("#content").width()/16*9)+"\" ;\"> <source src=\""+sourceUrl+"\" type=\'video/"+videoFormat+"\' /> </video>");
+	$(window).load( function(){ videojs("video", {}, function(){
 		// Player (this) is initialized and ready.
-	});
+	});});
 }
 
 function showAudio(){
 	$("head").append("<script src=\"/js/audiojs/audio.min.js\"></script>");
+	$("#content").html("<audio src=\""+sourceUrl+"\" preload=\"auto\" />");
 	audiojs.events.ready(function() {
 	  	var as = audiojs.createAll();
 	});
-	$("#content").html("<audio src=\""+sourceUrl+"\" preload=\"auto\" />");
 }
