@@ -37,3 +37,10 @@ div#content {
 #image-controls button {
 	width: 200px;
 }
+
+.vjs-default-skin .vjs-big-play-button {
+	left: 40% !important;
+	top: 40% !important;
+	width: 25%;
+	height: 25%;
+}
