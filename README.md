@@ -14,26 +14,26 @@ I also spent a great deal of time learning the technology that I put into this. 
 
 Feature List
 ---
-	• Bookmarking service
-	• Ability to follow other users
-	• Data type detection
-		• HEAD requests and parsing
-	• Custom content views
-		• Videos
-		• Audio
-		• Images
-		• Articles
-		• YouTube or Vimeo links
-	• Extensive custom scripts
-		• Text manipulation
-		• DOM manipulation and injection
-		• JSON parsing
-	• Readability integration via API
-		• GET requests
-		• Accessed and parsed via PHP and jQuery (using JSONp)
-		• API calls use Readability dev account
-	• Ability to add a new post from any screen via modal (imported from P2, with modification)
-		• HTTP status code response parsing
+* Bookmarking service
+* Ability to follow other users
+* Data type detection
+	* HEAD requests and parsing
+* Custom content views
+	* Videos
+	* Audio
+	* Images
+	* Articles
+	* YouTube or Vimeo links
+* Extensive custom scripts
+	* Text manipulation
+	* DOM manipulation and injection
+	* JSON parsing
+* Readability integration via API
+	* GET requests
+	* Accessed and parsed via PHP and jQuery (using JSONp)
+	* API calls use Readability dev account
+* Ability to add a new post from any screen via modal (imported from P2, with modification)
+	* HTTP status code response parsing
 
 
 JavaScript Usage
