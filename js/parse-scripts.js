@@ -131,7 +131,12 @@ function showArticle(){
 	$.getJSON("http://www.readability.com/api/content/v1/parser?token=349c3efd94e9cebb53cf6697724b6a7dc6797c5c&url="+sourceUrl+"&callback=?", function(data) {
 		$("#content").html(data.content);
 		$("#title").html(data.title);
-		$("#author").html("By "+data.author+" — "+data.domain);
+		if(data.author != null){
+			$("#author").html("By "+data.author+" — "+data.domain);
+		}
+		else{
+			$("#author").html(data.domain);
+		}
 	});
 
 	// If the url is from youtube or vimeo, the player should be full size
