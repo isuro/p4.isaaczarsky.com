@@ -55,6 +55,15 @@
 					<?php endif; ?>
 				</ul>
 			</div>
+			<table class="navbar-left" id="back-button" class="controls" hidden>
+				<tr>
+					<td></td>
+				</tr>
+				<tr>
+					<td><button onclick="window.history.back()">Go Back</button>
+					</td>
+				</tr>
+			</table>
 			<table class="navbar-right" id="text-controls" class="controls" hidden>
 				<tr>
 					<td>Font Size</td><td>Margin Size</td><td>Line Spacing</td><td>Font Type</td><td>Color Theme</td>

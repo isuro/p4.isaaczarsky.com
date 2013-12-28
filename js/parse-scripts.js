@@ -1,5 +1,7 @@
 $(window).ready(function(){
 
+	$("#back-button").show();
+
 	$("#original-link").attr("href", sourceUrl);
 
 	switch (mediaType) {
