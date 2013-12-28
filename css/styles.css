@@ -49,3 +49,7 @@ div#content {
 	width: 25%;
 	height: 25%;
 }
+
+.audiojs { /* Custom styling for audio player */
+	margin: 30px;
+}
