@@ -48,6 +48,7 @@ class posts_controller extends base_controller {
         # Query
         $q = 'SELECT
                 posts.title,
+                posts.post_id,
                 posts.created,
                 posts.user_id AS post_user_id,
                 users_users.user_id AS follower_id,
