@@ -1,8 +1,18 @@
 <form method='POST' action='/users/p_signup' class="form-horizontal">
 
-    <?php if(isset($error)): ?>
+    <?php if(isset($error1)): ?>
         <div class='alert alert-danger'>
             Signup failed. All fields are required.
+        </div>
+        <br>
+    <?php elseif(isset($error2)): ?>
+        <div class='alert alert-danger'>
+            Signup failed. An account with that email address already exists.
+        </div>
+        <br>
+    <?php if(isset($error3)): ?>
+        <div class='alert alert-danger'>
+            Signup failed. An account with that username already exists.
         </div>
         <br>
     <?php endif; ?>

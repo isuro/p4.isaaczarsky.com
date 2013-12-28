@@ -38,7 +38,7 @@ class users_controller extends base_controller {
         # Check that no fields are empty, send back if they are
 
         if (!isset($_POST['username']) && !isset($_POST['display_name']) && !isset($_POST['email']) && !isset($_POST['password'])) {
-            if (!$value) Router::redirect("/users/signup/error");
+            if (!$value) Router::redirect("/users/signup/error1");
         }
 
         # Check for existing user with same email
@@ -50,7 +50,7 @@ class users_controller extends base_controller {
         $existingEmail = DB::instance(DB_NAME)->select_rows($q);
 
         if ($existingEmail) {
-            Router::redirect("/users/signup/error");
+            Router::redirect("/users/signup/error2");
         }
 
         # Check for existing user with same username
@@ -61,7 +61,7 @@ class users_controller extends base_controller {
         $existingUser = DB::instance(DB_NAME)->select_rows($q);
 
         if ($existingUser) {
-            Router::redirect("/users/signup/error");
+            Router::redirect("/users/signup/error3");
         }
 
         # More data for the database
