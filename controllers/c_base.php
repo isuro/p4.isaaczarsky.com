@@ -58,10 +58,10 @@ class base_controller {
 						DB::instance(DB_NAME)->insert('posts', $_POST);
 
 			        	# Quick and dirty feedback
-						$this->template->post_submitted = "<div class=\"alert alert-success\">Your post has been added.</div>";
+						$this->template->post_submitted = "<div class=\"alert alert-success\" style=\"z-index:99;\">Your post has been added.</div>";
 					}
 					else{
-						$this->template->post_submitted = "<div class=\"alert alert-danger\">Readability seems to be having problems with your URL. Check that it's formatted correctly or try again later.</div>";
+						$this->template->post_submitted = "<div class=\"alert alert-danger\" style=\"z-index:99;\">Readability seems to be having problems with your URL. Check that it's formatted correctly or try again later.</div>";
 					}
 
 				}
@@ -73,7 +73,7 @@ class base_controller {
 					DB::instance(DB_NAME)->insert('posts', $_POST);
 
 		        	# Quick and dirty feedback
-					$this->template->post_submitted = "<div class=\"alert alert-success\">Your post has been added.</div>";
+					$this->template->post_submitted = "<div class=\"alert alert-success\" style=\"z-index:99;\">Your post has been added.</div>";
 				}
 
 
