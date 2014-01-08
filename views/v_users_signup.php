@@ -10,7 +10,7 @@
             Signup failed. An account with that email address already exists.
         </div>
         <br>
-    <?php if(isset($error3)): ?>
+    <?php elseif(isset($error3)): ?>
         <div class='alert alert-danger'>
             Signup failed. An account with that username already exists.
         </div>

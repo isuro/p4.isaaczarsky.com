@@ -10,7 +10,7 @@ class users_controller extends base_controller {
         Router::redirect('/users/profile');
     }
 
-    public function signup($error = NULL) {
+    public function signup($error1 = NULL, $error2 = NULL, $error3 = NULL) {
 
         # Setup view
         $this->template->content = View::instance('v_users_signup');
@@ -21,7 +21,9 @@ class users_controller extends base_controller {
             </script>";
 
         # Error validation
-        $this->template->content->error = $error;
+        $this->template->content->error1 = $error1;
+        $this->template->content->error2 = $error2;
+        $this->template->content->error3 = $error3;
 
         # Render template
         echo $this->template;
